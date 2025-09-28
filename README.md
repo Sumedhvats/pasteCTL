@@ -1,4 +1,4 @@
-# pastectl
+# pasteCTL
 
 A command-line interface for pasteCTL - share code snippets directly from your terminal.
 
