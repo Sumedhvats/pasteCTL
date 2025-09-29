@@ -13,7 +13,7 @@ const configFolderName = "pastectl"
 
 
 const defaultBackendURL = "https://api.paste.sumedh.app"
-const defaultFrontendURL = "https://paste.sumedh.app"
+const defaultFrontendURL = "https://paste.sumedh.app/paste"
 
 func InitConfig() {
     home, err := os.UserHomeDir()
