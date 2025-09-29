@@ -13,12 +13,12 @@ pastectl is a command-line client for the pasteCTL platform that enables develop
 
 ## Features
 
-- File-based paste creation from any file in your filesystem
-- Interactive editor integration for creating pastes
-- Automatic language detection based on file extensions
-- Configurable expiration times for paste lifecycle management
-- Raw output support for scripting and automation
-- Cross-platform compatibility (Linux, macOS, Windows)
+- 📁 File-based paste creation from any file in your filesystem
+- ✏️ Interactive editor integration for creating pastes
+- 🔍 Automatic language detection based on file extensions
+- ⏰ Configurable expiration times for paste lifecycle management
+- 📤 Raw output support for scripting and automation
+- 🌐 Cross-platform compatibility (Linux, macOS, Windows)
 
 ## Installation
 
@@ -32,7 +32,7 @@ go install github.com/Sumedhvats/pastectl@latest
 
 Download pre-compiled binaries from [GitHub Releases](https://github.com/Sumedhvats/pasteCTL_cli/releases).
 
-### From Source
+### Building From Source
 
 ```bash
 git clone https://github.com/Sumedhvats/pasteCTL_cli.git
@@ -40,161 +40,312 @@ cd pasteCTL_cli
 go build -o pastectl ./cmd/pastectl
 ```
 
-## Configuration
+After building, you'll have a `pastectl` binary (or `pastectl.exe` on Windows) in your current directory.
 
-Configure the CLI to connect to your pasteCTL instance:
+## Adding Binary to PATH
+
+To use `pastectl` from anywhere in your terminal, add it to your system PATH:
+
+### Linux
 
 ```bash
+# Move the binary to a directory in your PATH
+sudo mv pastectl /usr/local/bin/
+
+# Or add the current directory to PATH (add to ~/.bashrc or ~/.zshrc)
+export PATH=$PATH:/path/to/pasteCTL_cli
+```
+
+**Verify installation:**
+```bash
+which pastectl
+pastectl --help
+```
+
+### macOS
+
+```bash
+# Move the binary to a directory in your PATH
+sudo mv pastectl /usr/local/bin/
+
+# Or add to PATH (add to ~/.zshrc or ~/.bash_profile)
+export PATH=$PATH:/path/to/pasteCTL_cli
+
+# You may need to allow the binary in System Preferences > Security & Privacy
+```
+
+**Verify installation:**
+```bash
+which pastectl
+pastectl --help
+```
+
+### Windows
+
+**Method 1: Move to System Directory**
+```powershell
+# Run PowerShell as Administrator
+Move-Item pastectl.exe C:\Windows\System32\
+```
+
+**Method 2: Add Directory to PATH (Recommended)**
+
+1. Open System Properties:
+   - Press `Win + X` and select "System"
+   - Click "Advanced system settings"
+   - Click "Environment Variables"
+
+2. Edit PATH variable:
+   - Under "User variables" or "System variables", find `Path`
+   - Click "Edit" → "New"
+   - Add the full path to the directory containing `pastectl.exe`
+   - Click "OK" to save
+
+3. Restart your terminal/PowerShell
+
+**Verify installation:**
+```powershell
+where pastectl
+pastectl --help
+```
+
+## Initial Configuration
+
+Before using pastectl, configure the frontend and backend URLs:
+
+```bash
+# Set the frontend URL (where pastes will be accessed)
 pastectl config set frontend_url https://paste.example.com
+
+# Set the backend API URL
 pastectl config set backend_url https://api.paste.example.com
 ```
 
-## Usage
+**Configuration file location:**
+- Linux/macOS: `~/.pastectl.yaml`
+- Windows: `%USERPROFILE%\.pastectl.yaml`
+
+You can override the config location with the `PASTECTL_CONFIG` environment variable.
+
+## Usage Guide
 
 ### Creating Pastes
 
-Create a paste from a file:
+#### Create from a File
+
 ```bash
+# Basic file paste
 pastectl create --file main.go
-```
 
-Create a paste using your default editor:
-```bash
-pastectl create
-```
-
-Specify language and expiration:
-```bash
+# With custom language and expiration
 pastectl create --file script.py --language python --expire 24h
-```
 
-### Retrieving Pastes
-
-Get paste content with metadata:
-```bash
-pastectl get <paste-id>
-```
-
-Get raw content only:
-```bash
-pastectl get <paste-id> --raw
-```
-
-### Updating Pastes
-
-Update an existing paste:
-```bash
-pastectl update <paste-id>
-```
-
-## Command Reference
-
-### pastectl create
-
-Create a new paste from a file or using an editor.
-
-```
-pastectl create [flags]
-```
-
-**Flags:**
-- `-f, --file string`: Create paste from file path
-- `-l, --language string`: Override automatic language detection
-- `-e, --expire string`: Set expiration (default: never)
-
-**Examples:**
-```bash
-pastectl create -f ./main.go
+# Short flags
 pastectl create -f config.json -l json -e 1h
 ```
 
-### pastectl get
+#### Create Using an Editor
 
-Retrieve a paste by ID.
-
-```
-pastectl get <id> [flags]
-```
-
-**Flags:**
-- `--raw`: Output only the paste content
-
-**Examples:**
 ```bash
-pastectl get abc123def
-pastectl get abc123def --raw > local-copy.py
+# Opens your default editor (set via $EDITOR environment variable)
+pastectl create
+
+# Will use vi/vim by default if $EDITOR is not set
 ```
 
-### pastectl update
+**Setting your preferred editor:**
 
-Update an existing paste using an editor.
+```bash
+# Linux/macOS (add to ~/.bashrc or ~/.zshrc)
+export EDITOR=nano        # or vim, emacs, code, etc.
 
-```
-pastectl update <id>
-```
-
-### pastectl config
-
-Manage CLI configuration.
-
-```
-pastectl config set <key> <value>
+# Windows (PowerShell)
+$env:EDITOR = "notepad"   # or code, notepad++, etc.
 ```
 
-## Supported Languages
+#### Language Detection
 
 The CLI automatically detects language from file extensions:
 
-| Extension | Language |
-|-----------|----------|
-| `.go` | go |
-| `.py` | python |
-| `.js` | javascript |
-| `.java` | java |
-| `.c` | c |
-| `.cpp` | cpp |
-| `.json` | json |
-| `.md` | markdown |
+| Extension | Language | Extension | Language |
+|-----------|----------|-----------|----------|
+| `.go` | go | `.js` | javascript |
+| `.py` | python | `.java` | java |
+| `.c` | c | `.cpp` | cpp |
+| `.json` | json | `.md` | markdown |
+| `.txt` | plain | | |
 
-## Expiration Options
+**Override detection:**
+```bash
+pastectl create -f script.sh -l bash
+```
 
-Set paste expiration using these formats:
+#### Setting Expiration
+
+Available expiration formats:
 - `10m` - 10 minutes
 - `1h` - 1 hour  
 - `24h` - 24 hours
 - `7d` - 7 days
 - `never` - No expiration (default)
 
-## Integration Examples
+```bash
+# Temporary paste (1 hour)
+pastectl create -f debug.log -e 1h
 
-### CI/CD Pipeline
+# Week-long paste
+pastectl create -f report.txt -e 7d
+
+# Permanent paste (default)
+pastectl create -f reference.md
+```
+
+### Retrieving Pastes
+
+#### Get Paste with Metadata
 
 ```bash
-# Share build logs
+pastectl get abc123def
+```
+
+**Output:**
+```
+--- Paste Details ---
+ID:       abc123def
+Language: python
+Created:  2025-01-15 14:30:22
+--- Content ---
+def hello():
+    print("Hello, World!")
+```
+
+#### Get Raw Content Only
+
+```bash
+# Display raw content
+pastectl get abc123def --raw
+
+# Save to file
+pastectl get abc123def --raw > local-copy.py
+
+# Pipe to other commands
+pastectl get abc123def --raw | grep "TODO"
+```
+
+### Updating Pastes
+
+Update an existing paste using your editor:
+
+```bash
+pastectl update abc123def
+```
+
+This will:
+1. Fetch the current paste content
+2. Open it in your default editor
+3. Submit the updated content when you save and close the editor
+
+**Note:** The language of the paste is preserved during updates.
+
+### Configuration Management
+
+View and modify CLI configuration:
+
+```bash
+# Set configuration values
+pastectl config set frontend_url https://paste.example.com
+pastectl config set backend_url https://api.paste.example.com
+
+# Configuration keys:
+# - frontend_url: Base URL for accessing pastes in browser
+# - backend_url: API endpoint for paste operations
+```
+
+## Practical Examples
+
+### Share Build Logs
+
+```bash
+# Capture and share build output
 make build 2>&1 | tee build.log
 pastectl create -f build.log --expire 7d
 ```
 
-### Development Workflow
+### Share Git Diffs
 
 ```bash
-# Share current diff
-git diff HEAD~1 | pastectl create -l diff --expire 1h
+# Share uncommitted changes
+git diff > changes.diff
+pastectl create -f changes.diff -l diff -e 1h
+
+# Or pipe directly
+git diff | pastectl create -l diff -e 1h
+```
+
+### Quick Code Sharing
+
+```bash
+# Share a specific file with team
+pastectl create -f src/utils/helper.js -e 24h
+
+# Create and copy to clipboard (Linux with xclip)
+pastectl create -f main.go | grep "Link:" | awk '{print $3}' | xclip -selection clipboard
 ```
 
 ### System Administration
 
 ```bash
-# Share system information
-pastectl create -f /var/log/syslog --expire 24h
+# Share configuration files
+pastectl create -f /etc/nginx/nginx.conf -e 1h
+
+# Share recent logs
+tail -n 100 /var/log/syslog | pastectl create -l log -e 24h
+```
+
+### Code Review Workflow
+
+```bash
+# Create paste for review
+pastectl create -f feature.go -e 7d
+
+# After review, update with changes
+pastectl update abc123def
+
+# Share final version
+pastectl get abc123def --raw > reviewed-feature.go
 ```
 
 ## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `EDITOR` | Default text editor | `vi` |
-| `PASTECTL_CONFIG` | Config file path | `~/.pastectl.yaml` |
+| `EDITOR` | Default text editor for creating/updating pastes | `vi` |
+| `PASTECTL_CONFIG` | Custom config file path | `~/.pastectl.yaml` |
+
+## Troubleshooting
+
+### Command not found
+- Ensure the binary is in your PATH (see installation section)
+- Try using the full path: `/path/to/pastectl` or `./pastectl`
+
+### Config not set error
+```bash
+# You'll see: "Error: frontend_url is not set"
+# Solution:
+pastectl config set frontend_url https://your-paste-url.com
+pastectl config set backend_url https://your-api-url.com
+```
+
+### Editor not opening
+```bash
+# Set your preferred editor
+export EDITOR=nano  # or vim, code, etc.
+```
+
+### Permission denied (Linux/macOS)
+```bash
+chmod +x pastectl
+```
 
 ## Contributing
 
@@ -233,3 +384,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Issues**: [GitHub Issues](https://github.com/Sumedhvats/pasteCTL_cli/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/Sumedhvats/pasteCTL_cli/discussions)
 - **Documentation**: [Wiki](https://github.com/Sumedhvats/pasteCTL_cli/wiki)
+
+---
+
+Made with ❤️ by Sumedh
