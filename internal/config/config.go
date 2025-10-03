@@ -18,13 +18,13 @@ const defaultFrontendURL = "https://paste.sumedh.app/paste"
 func InitConfig() {
     home, err := os.UserHomeDir()
     if err != nil {
-        fmt.Printf("❌ Could not find home directory: %v\n", err)
+        fmt.Printf("Could not find home directory: %v\n", err)
         os.Exit(1)
     }
 
     configPath := filepath.Join(home, ".config", configFolderName)
     if err := os.MkdirAll(configPath, os.ModePerm); err != nil {
-        fmt.Printf("❌ Could not create config directory: %v\n", err)
+        fmt.Printf(" Could not create config directory: %v\n", err)
         os.Exit(1)
     }
 
@@ -44,15 +44,12 @@ func InitConfig() {
         fmt.Printf("No existing config found, using defaults\n")
         fmt.Println("------------------")
     } else {
-        fmt.Println("--- Debug Info ---")
-        fmt.Printf("Successfully loaded config file: %s\n", configFilePath)
         fmt.Println("------------------")
     }
 }
 func Get(key string) string {
 	return viper.GetString(key)
 }
-
 
 func Set(key, value string) error {
     home, err := os.UserHomeDir()

@@ -1,0 +1,109 @@
+# .goreleaser.yml
+# This is the complete configuration file for the pastectl project.
+# For more info, check the documentation at https://goreleaser.com
+
+# The project name.
+project_name: pastectl
+
+# This version is used if you don't have any git tags.
+version: 2
+
+# Runs before the build.
+before:
+  hooks:
+    # Tidy up go.mod.
+    - go mod tidy
+
+# Configures the build process.
+builds:
+  -
+    # The main entry point for your application.
+    main: .
+    
+    # The name of the binary.
+    binary: pastectl
+    
+    # Build for multiple platforms.
+    goos:
+      - linux
+      - windows
+      - darwin # macOS
+    goarch:
+      - amd64
+      - arm64
+      
+    # Environment variables for the build. CGO_ENABLED=0 creates a static binary.
+    env:
+      - CGO_ENABLED=0
+      
+    # Use ldflags to inject the version number into your binary at build time.
+    # This requires a `var version string` in your main package.
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}}
+
+# Configures how binaries are archived (e.g., in .tar.gz or .zip files).
+archives:
+  -
+    # Include common files like the license and README.
+    files:
+      - LICENSE
+      - README.md
+    
+    # Use .zip for Windows archives instead of the default .tar.gz.
+    format_overrides:
+      - goos: windows
+        format: zip
+
+# Generates a checksums.txt file for verifying download integrity.
+checksum:
+  name_template: 'checksums.txt'
+
+# Creates Homebrew tap definitions for macOS and Linux users.
+brews:
+  -
+    # Name of the Homebrew formula.
+    name: pastectl
+
+    # Your Homebrew tap repository.
+    repository:
+      owner: Sumedhvats
+      name: homebrew-pastectl
+    
+    # A description of your application.
+    description: "Share code directly on the pasteCTL platform"
+    homepage: "https://github.com/Sumedhvats/pasteCTL"
+    
+    # Commit author for the tap repository.
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+      
+    # Installation instructions for the binary.
+    install: |
+      bin.install "pastectl"
+
+# Creates Scoop manifests for Windows users.
+scoops:
+  -
+    repository:
+      owner: Sumedhvats
+      name: scoop-bucket
+    description: "Share code directly on the pasteCTL platform"
+    homepage: "https://github.com/Sumedhvats/pasteCTL"
+
+# Automatically generates a changelog from your git commit history.
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - 'Merge pull request'
+
+# Configures the final GitHub Release.
+release:
+  # If set to true, will not auto-publish the release.
+  draft: false
+  
+  # If set to true, will mark the release as a pre-release on GitHub.
+  prerelease: auto
