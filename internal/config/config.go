@@ -38,14 +38,7 @@ func InitConfig() {
     viper.SetDefault("backend_url", defaultBackendURL)
     viper.SetDefault("frontend_url", defaultFrontendURL)
 
-    // Read existing config if it exists
-    if err := viper.ReadInConfig(); err != nil {
-        fmt.Println("--- Debug Info ---")
-        fmt.Printf("No existing config found, using defaults\n")
-        fmt.Println("------------------")
-    } else {
-        fmt.Println("------------------")
-    }
+
 }
 func Get(key string) string {
 	return viper.GetString(key)
