@@ -84,7 +84,6 @@ func GetPaste(id string) (*Paste, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	resp, err := apiClient.Get(fmt.Sprintf("%s/api/pastes/%s", backendURL, id))
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)

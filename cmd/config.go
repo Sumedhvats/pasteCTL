@@ -19,12 +19,11 @@ var setCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
 		value := args[1]
-
 		if err := config.Set(key, value); err != nil {
 			fmt.Printf("Error setting config: %v\n", err)
 			return
 		}
-		fmt.Printf("✅ Config set: %s = %s\n", key, value)
+		fmt.Printf(" Config set: %s = %s\n", key, value)
 	},
 }
 

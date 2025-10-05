@@ -18,20 +18,20 @@ var updateCmd = &cobra.Command{
 
 		existingPaste, err := api.GetPaste(pasteID)
 		if err != nil {
-			log.Fatalf("❌ Failed to retrieve existing paste: %v", err)
+			log.Fatalf("Failed to retrieve existing paste: %v", err)
 		}
 
 		newContent, err := editor.GetContentFromEditor(existingPaste.Content)
 		if err != nil {
-			log.Fatalf("❌ Could not get content from editor: %v", err)
+			log.Fatalf("Could not get content from editor: %v", err)
 		}
 
 		_, err = api.UpdatePaste(pasteID, newContent, existingPaste.Language)
 		if err != nil {
-			log.Fatalf("❌ Failed to update paste: %v", err)
+			log.Fatalf("Failed to update paste: %v", err)
 		}
 
-		fmt.Println("✅ Paste updated successfully!")
+		fmt.Println("Paste updated successfully!")
 	},
 }
 

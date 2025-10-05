@@ -41,50 +41,42 @@ func createPaste(cmd *cobra.Command, args []string) {
 	var content string
 	var err error
 fmt.Print(args)
-	// 1. Determine Content Source (File vs. Editor)
+
 	if filePath != "" {
 		fileContent, fileErr := os.ReadFile(filePath)
 		if fileErr != nil {
-			log.Fatalf("❌ Error reading file: %v", fileErr)
+			log.Fatalf("Error reading file: %v", fileErr)
 		}
 		content = string(fileContent)
 	} else {
 		content, err = editor.GetContentFromEditor("")
 		if err != nil {
-			log.Fatalf("❌ Error opening editor: %v", err)
+			log.Fatalf("Error opening editor: %v", err)
 		}
 	}
-
-	// 2. Handle Empty Content
 	if strings.TrimSpace(content) == "" {
-		fmt.Println("⚠️ No content provided. Aborting creation.")
+		fmt.Println("No content provided. Aborting creation.")
 		return
 	}
-
-	// 3. Determine Language
 	if language == "" && filePath != "" {
 		detectedLang := mapExtensionToLanguage(filepath.Ext(filePath))
-		fmt.Printf("ℹ️ Detected language: %s\n", detectedLang)
+		fmt.Printf("ℹDetected language: %s\n", detectedLang)
 		language = detectedLang
 	} else if language == "" {
-		language = "plain" // Default for editor input
+		language = "plain"
 	}
-
-	// 4. Call API and Handle Errors
-	fmt.Println("🚀 Creating paste...")
+	fmt.Println("Creating paste...")
 	paste, err := api.CreatePaste(content, language, expire)
 	if err != nil {
-		log.Fatalf("❌ Failed to create paste: %v", err)
+		log.Fatalf("Failed to create paste: %v", err)
 	}
-
-	// 5. Provide Clear Success Output
 	frontendURL := config.Get("frontend_url")
 	if frontendURL == "" {
 		log.Fatalf("Error: frontend_url is not set. Please use 'pastectl config set frontend_url <url>'")
 	}
 
-	fmt.Printf("✅ Paste created successfully!\n")
-	fmt.Printf("🔗 Link: %s/%s\n", frontendURL, paste.ID)
+	fmt.Printf("Paste created successfully!\n")
+	fmt.Printf("Link: %s/%s\n", frontendURL, paste.ID)
 }
 
 func mapExtensionToLanguage(ext string) string {

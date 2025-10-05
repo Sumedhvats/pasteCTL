@@ -20,13 +20,13 @@ var getCmd = &cobra.Command{
 		if raw {
 			content, err := api.GetPasteRaw(pasteID)
 			if err != nil {
-				log.Fatalf("❌ Failed to get raw paste: %v", err)
+				log.Fatalf("Failed to get raw paste: %v", err)
 			}
 			fmt.Println(content)
 		} else {
 			paste, err := api.GetPaste(pasteID)
 			if err != nil {
-				log.Fatalf("❌ Failed to get paste: %v", err)
+				log.Fatalf("Failed to get paste: %v", err)
 			}
 			fmt.Printf("--- Paste Details ---\n")
 			fmt.Printf("ID:       %s\n", paste.ID)
