@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Sumedhvats/pastectl/internal/api"
-	"github.com/Sumedhvats/pastectl/internal/config"
-	"github.com/Sumedhvats/pastectl/internal/editor"
+	"github.com/Sumedhvats/pasteCTL/internal/api"
+	"github.com/Sumedhvats/pasteCTL/internal/config"
+	"github.com/Sumedhvats/pasteCTL/internal/editor"
 	"github.com/spf13/cobra"
 )
 

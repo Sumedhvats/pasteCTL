@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Sumedhvats/pastectl/internal/config"
+	"github.com/Sumedhvats/pasteCTL/internal/config"
 )
 
 var apiClient = &http.Client{

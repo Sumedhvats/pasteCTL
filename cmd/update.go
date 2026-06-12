@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Sumedhvats/pastectl/internal/api"
-	"github.com/Sumedhvats/pastectl/internal/editor"
+	"github.com/Sumedhvats/pasteCTL/internal/api"
+	"github.com/Sumedhvats/pasteCTL/internal/editor"
 	"github.com/spf13/cobra"
 )
 

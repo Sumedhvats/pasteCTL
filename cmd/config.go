@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/Sumedhvats/pastectl/internal/config"
+	"github.com/Sumedhvats/pasteCTL/internal/config"
 	"github.com/spf13/cobra"
 )
 
