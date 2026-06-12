@@ -1,4 +1,4 @@
-module github.com/Sumedhvats/pastectl
+module github.com/Sumedhvats/pasteCTL
 
 go 1.25.1
 
