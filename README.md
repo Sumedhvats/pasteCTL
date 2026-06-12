@@ -10,7 +10,7 @@ PasteCTL CLI is a terminal-based client for the PasteCTL platform. It provides a
 
 - **Create Pastes**: Create pastes from files or directly in your editor
 - **Automatic Language Detection**: Detects language from file extensions
-- **Custom Expiry Times**: Set paste expiration (10m, 1h, never, etc.)
+- **Custom Expiry Times**: Set paste expiration (1h, 24h, 7d, or never)
 - **Retrieve Pastes**: Fetch paste content with formatted output or raw text
 - **Update Pastes**: Edit existing pastes in your preferred editor
 - **Configuration Management**: Store API endpoint and frontend URL locally
@@ -126,14 +126,14 @@ Language is automatically detected from the file extension.
 Specify language and expiry time:
 
 ```bash
-pastectl create --file script.py --language python --expire 1h
+pastectl create --file script.py --language python --expire 24h
 ```
 
 Expiry options:
-- `10m` - 10 minutes
-- `1h` - 1 hour
+- `1h` - 1 hour (default)
 - `24h` - 24 hours
-- `never` - No expiration (default)
+- `7d` - 7 days
+- `never` - No expiration
 
 ### Retrieve a Paste
 
@@ -210,15 +210,14 @@ The CLI automatically detects the following languages from file extensions:
 
 | Extension | Language   |
 |-----------|------------|
-| `.js`     | javascript |
-| `.py`     | python     |
-| `.go`     | go         |
+| `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs` | javascript |
+| `.py`, `.pyw` | python |
 | `.java`   | java       |
+| `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hxx`, `.h` | cpp |
 | `.c`      | c          |
-| `.cpp`    | cpp        |
-| `.json`   | json       |
-| `.md`     | markdown   |
-| `.txt`    | plain      |
+| `.go`     | go         |
+| `.sql`    | sql        |
+| `.txt`, `.md`, `.json` | plain |
 
 For other file types or editor-created pastes, you can manually specify the language using the `--language` flag.
 
@@ -376,4 +375,4 @@ chmod +x pastectl
 
 For issues, questions, or contributions, please visit the [GitHub Issues](https://github.com/Sumedhvats/pastectl/issues) page.
 
-Made with ❤️ by Sumedh
+Made with love by Sumedh
