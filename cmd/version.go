@@ -8,6 +8,7 @@ import (
 
 // Version is bumped for each tagged release.
 var Version = "1.1.1"
+var Commit = "dev"
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
