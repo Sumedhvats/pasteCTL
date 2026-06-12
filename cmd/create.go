@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
+	"github.com/mdp/qrterminal/v3"
 	"github.com/Sumedhvats/pasteCTL/internal/api"
 	"github.com/Sumedhvats/pasteCTL/internal/config"
 	"github.com/Sumedhvats/pasteCTL/internal/editor"
@@ -74,9 +74,18 @@ func createPaste(cmd *cobra.Command, args []string) {
 	if frontendURL == "" {
 		log.Fatalf("Error: frontend_url is not set. Please use 'pastectl config set frontend_url <url>'")
 	}
-
+	config := qrterminal.Config{
+		HalfBlocks: true,          // Compresses vertical height
+		Level:      qrterminal.L,   // Keeps the grid complexity minimal
+		Writer:     os.Stdout,
+		QuietZone:  1,              // Removes excess border padding
+	}
 	fmt.Printf("Paste created successfully!\n")
 	fmt.Printf("Link: %s/%s\n", frontendURL, paste.ID)
+	qrUrl:= fmt.Sprintf("%s/%s", frontendURL, paste.ID)
+	qrterminal.GenerateWithConfig(qrUrl, config)
+	fmt.Println()
+
 }
 
 func mapExtensionToLanguage(ext string) string {
