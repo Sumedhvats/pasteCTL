@@ -72,7 +72,7 @@ func createPaste(cmd *cobra.Command, args []string) {
 	}
 	frontendURL := config.Get("frontend_url")
 	if frontendURL == "" {
-		log.Fatalf("Error: frontend_url is not set. Please use 'pastectl config set frontend_url <url>'")
+		log.Fatalf("Error: frontend_url is not set. Please use 'pasteCTL config set frontend_url <url>'")
 	}
 	config := qrterminal.Config{
 		HalfBlocks: true,          // Compresses vertical height

@@ -1,10 +1,10 @@
-# PasteCTL CLI
+# pasteCTL CLI
 
-A command-line interface for [PasteCTL](https://paste.sumedh.app), allowing developers to create, retrieve, and manage code snippets directly from the terminal.
+A command-line interface for [pasteCTL](https://paste.sumedh.app), allowing developers to create, retrieve, and manage code snippets directly from the terminal.
 
 ## Overview
 
-PasteCTL CLI is a terminal-based client for the PasteCTL platform. It provides a fast and efficient way to share code snippets without leaving your development environment. The CLI integrates with your system's default editor, supports automatic language detection from file extensions, and displays fetched pastes with syntax highlighting in your terminal.
+pasteCTL CLI is a terminal-based client for the pasteCTL platform. It provides a fast and efficient way to share code snippets without leaving your development environment. The CLI integrates with your system's default editor, supports automatic language detection from file extensions, and displays fetched pastes with syntax highlighting in your terminal.
 
 ## Features
 
@@ -36,29 +36,29 @@ Download the appropriate binary for your platform from the [Releases page](https
 #### Linux
 
 ```bash
-wget https://github.com/Sumedhvats/pasteCTL/releases/latest/download/pastectl_linux_amd64.tar.gz
-tar -xvf pastectl_linux_amd64.tar.gz
-sudo mv pastectl /usr/local/bin/
-pastectl --version
+wget https://github.com/Sumedhvats/pasteCTL/releases/latest/download/pasteCTL_linux_amd64.tar.gz
+tar -xvf pasteCTL_linux_amd64.tar.gz
+sudo mv pasteCTL /usr/local/bin/
+pasteCTL --version
 ```
 
 #### macOS
 
 ```bash
-wget https://github.com/Sumedhvats/pasteCTL/releases/latest/download/pastectl_darwin_amd64.tar.gz
-tar -xvf pastectl_darwin_amd64.tar.gz
-sudo mv pastectl /usr/local/bin/
-pastectl --version
+wget https://github.com/Sumedhvats/pasteCTL/releases/latest/download/pasteCTL_darwin_amd64.tar.gz
+tar -xvf pasteCTL_darwin_amd64.tar.gz
+sudo mv pasteCTL /usr/local/bin/
+pasteCTL --version
 ```
 
 #### Windows
 
-1. Download `pastectl_windows_amd64.zip` from the [Releases page](https://github.com/Sumedhvats/pasteCTL/releases)
+1. Download `pasteCTL_windows_amd64.zip` from the [Releases page](https://github.com/Sumedhvats/pasteCTL/releases)
 2. Extract the archive
-3. Move `pastectl.exe` to a directory in your `PATH`
+3. Move `pasteCTL.exe` to a directory in your `PATH`
 
 ```powershell
-pastectl.exe --version
+pasteCTL.exe --version
 ```
 
 ## Usage
@@ -68,19 +68,19 @@ pastectl.exe --version
 **From your editor** (opens `$EDITOR`, defaults to `vim` / `notepad`):
 
 ```bash
-pastectl create
+pasteCTL create
 ```
 
 **From a file** (language is auto-detected from the extension):
 
 ```bash
-pastectl create --file main.go
+pasteCTL create --file main.go
 ```
 
 **With custom options:**
 
 ```bash
-pastectl create --file script.py --language python --expire 24h
+pasteCTL create --file script.py --language python --expire 24h
 ```
 
 | Flag | Short | Default | Description |
@@ -94,7 +94,7 @@ pastectl create --file script.py --language python --expire 24h
 **With syntax highlighting and metadata:**
 
 ```bash
-pastectl get <paste-id>
+pasteCTL get <paste-id>
 ```
 
 Example output:
@@ -116,13 +116,13 @@ func main() {
 **Raw content** (for piping or saving to a file):
 
 ```bash
-pastectl get abc123 --raw > downloaded.go
+pasteCTL get abc123 --raw > downloaded.go
 ```
 
 **Without colors** (plain text with metadata):
 
 ```bash
-pastectl get abc123 --no-color
+pasteCTL get abc123 --no-color
 ```
 
 | Flag | Default | Description |
@@ -135,7 +135,7 @@ pastectl get abc123 --no-color
 Edit an existing paste in your editor:
 
 ```bash
-pastectl update <paste-id>
+pasteCTL update <paste-id>
 ```
 
 The CLI will:
@@ -158,20 +158,20 @@ The CLI automatically detects the following languages from file extensions:
 | `.sql` | SQL |
 | `.txt` `.md` `.json` | Plain Text |
 
-For other file types, use the `--language` flag: `pastectl create -f query.txt -l sql`
+For other file types, use the `--language` flag: `pasteCTL create -f query.txt -l sql`
 
 ## Configuration
 
-PasteCTL CLI stores configuration in `~/.config/pastectl/config.yaml`.
+pasteCTL CLI stores configuration in `~/.config/pasteCTL/config.yaml`.
 
 ### Setup
 
 ```bash
 # Set the backend API URL
-pastectl config set backend_url https://api.paste.sumedh.app
+pasteCTL config set backend_url https://api.paste.sumedh.app
 
 # Set the frontend URL (used for generating shareable links)
-pastectl config set frontend_url https://paste.sumedh.app/paste
+pasteCTL config set frontend_url https://paste.sumedh.app/paste
 ```
 
 ### Defaults
@@ -185,7 +185,7 @@ The CLI comes with sensible defaults that work out of the box:
 
 ## Editor Configuration
 
-PasteCTL respects your system's `$EDITOR` environment variable. To set your preferred editor:
+pasteCTL respects your system's `$EDITOR` environment variable. To set your preferred editor:
 
 **Linux / macOS** — add to `~/.bashrc` or `~/.zshrc`:
 
@@ -205,7 +205,7 @@ $env:EDITOR = "notepad"
 
 ```bash
 # Create from file
-pastectl create --file main.go --expire 24h
+pasteCTL create --file main.go --expire 24h
 
 # Output:
 # Creating paste...
@@ -216,20 +216,20 @@ pastectl create --file main.go --expire 24h
 ### Download a Paste
 
 ```bash
-pastectl get abc123 --raw > downloaded.go
+pasteCTL get abc123 --raw > downloaded.go
 ```
 
 ### Self-Hosted Instance
 
 ```bash
-pastectl config set backend_url http://localhost:8080
-pastectl config set frontend_url http://localhost:3000/paste
-pastectl create --file script.sh
+pasteCTL config set backend_url http://localhost:8080
+pasteCTL config set frontend_url http://localhost:3000/paste
+pasteCTL create --file script.sh
 ```
 
 ## API Endpoints
 
-The CLI communicates with the PasteCTL backend via REST API:
+The CLI communicates with the pasteCTL backend via REST API:
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -271,7 +271,7 @@ pasteCTL/
 ```bash
 git clone https://github.com/Sumedhvats/pasteCTL.git
 cd pasteCTL
-go build -o pastectl .
+go build -o pasteCTL .
 ```
 
 Install directly:
@@ -284,21 +284,21 @@ go install
 
 **Backend URL not set:**
 ```
-backend_url is not set. Please use 'pastectl config set backend_url <url>'
+backend_url is not set. Please use 'pasteCTL config set backend_url <url>'
 ```
-Fix: `pastectl config set backend_url https://api.paste.sumedh.app`
+Fix: `pasteCTL config set backend_url https://api.paste.sumedh.app`
 
 **Editor not opening:**
 Set the `EDITOR` environment variable: `export EDITOR=vim`
 
 **Permission denied (Linux/macOS):**
 ```bash
-chmod +x pastectl
+chmod +x pasteCTL
 ```
 
 ## Related Projects
 
-- [PasteCTL Web](https://github.com/Sumedhvats/pasteCTL_web) — Full-stack web application with Next.js frontend and Go backend
+- [pasteCTL Web](https://github.com/Sumedhvats/pasteCTL_web) — Full-stack web application with Next.js frontend and Go backend
 - [paste.sumedh.app](https://paste.sumedh.app) — Live instance
 
 ## Support

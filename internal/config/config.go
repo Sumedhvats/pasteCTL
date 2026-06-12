@@ -9,7 +9,7 @@ import (
 )
 
 const configFileName = "config"
-const configFolderName = "pastectl"
+const configFolderName = "pasteCTL"
 
 
 const defaultBackendURL = "https://api.paste.sumedh.app"

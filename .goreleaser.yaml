@@ -1,5 +1,5 @@
 # .goreleaser.yml
-project_name: pastectl
+project_name: pasteCTL
 version: 2
 
 before:
@@ -9,7 +9,7 @@ before:
 builds:
   -
     main: .
-    binary: pastectl
+    binary: pasteCTL
     goos:
       - linux
       - windows

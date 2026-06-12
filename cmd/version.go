@@ -7,14 +7,14 @@ import (
 )
 
 // Version is bumped for each tagged release.
-var Version = "1.1.2"
+var Version = "1.1.3"
 var Commit = "dev"
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version of pasteCTL",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("pastectl v%s\n", Version)
+		fmt.Printf("pasteCTL v%s\n", Version)
 	},
 }
 

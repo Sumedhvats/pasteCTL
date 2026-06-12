@@ -7,7 +7,7 @@ import (
 )
 
 func GetContentFromEditor(initialContent string) (string, error) {
-	file, err := os.CreateTemp("", "pastectl-*.txt")
+	file, err := os.CreateTemp("", "pasteCTL-*.txt")
 	if err != nil {
 		return "", err
 	}

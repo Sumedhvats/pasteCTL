@@ -40,7 +40,7 @@ func getAPIURL() (string, error) {
 	if url == "" {
 
 
-		return "", fmt.Errorf("backend_url is not set. Please use 'pastectl config set backend_url <url>'")
+		return "", fmt.Errorf("backend_url is not set. Please use 'pasteCTL config set backend_url <url>'")
 		
 	}
 	return url, nil
