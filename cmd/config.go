@@ -23,7 +23,7 @@ var setCmd = &cobra.Command{
 			fmt.Printf("Error setting config: %v\n", err)
 			return
 		}
-		fmt.Printf(" Config set: %s = %s\n", key, value)
+		fmt.Printf("Config set: %s = %s\n", key, value)
 	},
 }
 

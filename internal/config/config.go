@@ -32,7 +32,7 @@ func InitConfig() {
     viper.SetDefault("backend_url", defaultBackendURL)
     viper.SetDefault("frontend_url", defaultFrontendURL)
 
-
+    _ = viper.ReadInConfig()
 }
 func Get(key string) string {
 	return viper.GetString(key)

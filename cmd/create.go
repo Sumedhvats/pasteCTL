@@ -33,14 +33,14 @@ You can provide content in one of two ways:
 func init() {
 	createCmd.Flags().StringVarP(&filePath, "file", "f", "", "Create paste from a file path")
 	createCmd.Flags().StringVarP(&language, "language", "l", "", "Override language detection (e.g., go, python)")
-	createCmd.Flags().StringVarP(&expire, "expire", "e", "never", "Set expiration time (e.g., 10m, 1h)")
+	createCmd.Flags().StringVarP(&expire, "expire", "e", "1h", "Set expiration time (e.g., 1h, 24h, 7d, never)")
 	rootCmd.AddCommand(createCmd)
 }
 
 func createPaste(cmd *cobra.Command, args []string) {
 	var content string
 	var err error
-fmt.Print(args)
+
 
 	if filePath != "" {
 		fileContent, fileErr := os.ReadFile(filePath)
@@ -60,7 +60,7 @@ fmt.Print(args)
 	}
 	if language == "" && filePath != "" {
 		detectedLang := mapExtensionToLanguage(filepath.Ext(filePath))
-		fmt.Printf("ℹDetected language: %s\n", detectedLang)
+		fmt.Printf("Detected language: %s\n", detectedLang)
 		language = detectedLang
 	} else if language == "" {
 		language = "plain"
@@ -82,15 +82,35 @@ fmt.Print(args)
 func mapExtensionToLanguage(ext string) string {
 	trimmedExt := strings.TrimPrefix(strings.ToLower(ext), ".")
 	langMap := map[string]string{
-		"js":   "javascript",
-		"py":   "python",
-		"go":   "go",
+		// JavaScript / TypeScript — frontend groups all under "javascript"
+		"js":  "javascript",
+		"jsx": "javascript",
+		"ts":  "javascript",
+		"tsx": "javascript",
+		"mjs": "javascript",
+		"cjs": "javascript",
+		// Python
+		"py":  "python",
+		"pyw": "python",
+		// Java
 		"java": "java",
-		"c":    "c",
-		"cpp":  "cpp",
-		"json": "json",
-		"md":   "markdown",
+		// C++ (including .h to match frontend)
+		"cpp": "cpp",
+		"cc":  "cpp",
+		"cxx": "cpp",
+		"hpp": "cpp",
+		"hxx": "cpp",
+		"h":   "cpp",
+		// C
+		"c": "c",
+		// Go
+		"go": "go",
+		// SQL
+		"sql": "sql",
+		// Plain text fallbacks
 		"txt":  "plain",
+		"md":   "plain",
+		"json": "plain",
 	}
 	if lang, ok := langMap[trimmedExt]; ok {
 		return lang
