@@ -23,19 +23,19 @@ PasteCTL CLI is a terminal-based client for the PasteCTL platform. It provides a
 If you have Go 1.24.0 or higher installed:
 
 ```bash
-go install github.com/Sumedhvats/pastectl@latest
+go install github.com/Sumedhvats/pasteCTL@latest
 ```
 
 Make sure your `$GOPATH/bin` is in your `PATH`.
 
 ### Pre-built Binaries
 
-Download the appropriate binary for your platform from the [releases page](https://github.com/Sumedhvats/pastectl/releases).
+Download the appropriate binary for your platform from the [releases page](https://github.com/Sumedhvats/pasteCTL/releases).
 
 #### Linux
 
 ```bash
-wget https://github.com/Sumedhvats/pastectl/releases/download/v0.1.1/pastectl_0.1.1_linux_amd64.tar.gz
+wget https://github.com/Sumedhvats/pasteCTL/releases/download/v0.1.1/pastectl_0.1.1_linux_amd64.tar.gz
 tar -xvf pastectl_0.1.1_linux_amd64.tar.gz
 sudo mv pastectl /usr/local/bin/
 ```
@@ -48,7 +48,7 @@ pastectl --help
 #### macOS
 
 ```bash
-wget https://github.com/Sumedhvats/pastectl/releases/download/v0.1.1/pastectl_0.1.1_darwin_amd64.tar.gz
+wget https://github.com/Sumedhvats/pasteCTL/releases/download/v0.1.1/pastectl_0.1.1_darwin_amd64.tar.gz
 tar -xvf pastectl_0.1.1_darwin_amd64.tar.gz
 sudo mv pastectl /usr/local/bin/
 ```
@@ -60,7 +60,7 @@ pastectl --help
 
 #### Windows
 
-1. Download `pastectl_0.1.1_windows_amd64.zip` from the [releases page](https://github.com/Sumedhvats/pastectl/releases)
+1. Download `pastectl_0.1.1_windows_amd64.zip` from the [releases page](https://github.com/Sumedhvats/pasteCTL/releases)
 2. Extract the archive
 3. Move `pastectl.exe` to a directory in your `PATH` (e.g., `C:\Windows\System32`)
 
@@ -326,7 +326,7 @@ pastectl/
 Clone the repository and build:
 
 ```bash
-git clone https://github.com/Sumedhvats/pastectl.git
+git clone https://github.com/Sumedhvats/pasteCTL.git
 cd pastectl
 go build -o pastectl
 ```
@@ -339,7 +339,7 @@ go install
 
 ## Related Projects
 
-- [PasteCTL Web](https://github.com/sumedhvats/pastectl_web) - Full-stack web application with Next.js frontend and Go backend
+- [PasteCTL Web](https://github.com/Sumedhvats/pasteCTL_web) - Full-stack web application with Next.js frontend and Go backend
 
 ## Troubleshooting
 
@@ -373,6 +373,6 @@ chmod +x pastectl
 
 ## Support
 
-For issues, questions, or contributions, please visit the [GitHub Issues](https://github.com/Sumedhvats/pastectl/issues) page.
+For issues, questions, or contributions, please visit the [GitHub Issues](https://github.com/Sumedhvats/pasteCTL/issues) page.
 
 Made with love by Sumedh
