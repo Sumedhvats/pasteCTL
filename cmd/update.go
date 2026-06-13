@@ -6,6 +6,7 @@ import (
 
 	"github.com/Sumedhvats/pasteCTL/internal/api"
 	"github.com/Sumedhvats/pasteCTL/internal/editor"
+	"github.com/Sumedhvats/pasteCTL/internal/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -27,6 +28,8 @@ var updateCmd = &cobra.Command{
 		if err != nil {
 			log.Fatalf("Could not get content from editor: %v", err)
 		}
+
+		newContent = utils.StripANSI(newContent)
 
 		_, err = api.UpdatePaste(pasteID, newContent, existingPaste.Language)
 		if err != nil {

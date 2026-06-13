@@ -10,6 +10,7 @@ import (
 	"github.com/Sumedhvats/pasteCTL/internal/api"
 	"github.com/Sumedhvats/pasteCTL/internal/config"
 	"github.com/Sumedhvats/pasteCTL/internal/editor"
+	"github.com/Sumedhvats/pasteCTL/internal/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -58,6 +59,9 @@ func createPaste(cmd *cobra.Command, args []string) {
 		fmt.Println("No content provided. Aborting creation.")
 		return
 	}
+
+	content = utils.StripANSI(content)
+
 	if language == "" && filePath != "" {
 		detectedLang := mapExtensionToLanguage(filepath.Ext(filePath))
 		fmt.Printf("Detected language: %s\n", detectedLang)
@@ -75,10 +79,10 @@ func createPaste(cmd *cobra.Command, args []string) {
 		log.Fatalf("Error: frontend_url is not set. Please use 'pasteCTL config set frontend_url <url>'")
 	}
 	config := qrterminal.Config{
-		HalfBlocks: true,          // Compresses vertical height
-		Level:      qrterminal.L,   // Keeps the grid complexity minimal
+		HalfBlocks: true,          
+		Level:      qrterminal.L,   
 		Writer:     os.Stdout,
-		QuietZone:  1,              // Removes excess border padding
+		QuietZone:  1,             
 	}
 	fmt.Printf("Paste created successfully!\n")
 	fmt.Printf("Link: %s/%s\n", frontendURL, paste.ID)
@@ -91,30 +95,29 @@ func createPaste(cmd *cobra.Command, args []string) {
 func mapExtensionToLanguage(ext string) string {
 	trimmedExt := strings.TrimPrefix(strings.ToLower(ext), ".")
 	langMap := map[string]string{
-		// JavaScript / TypeScript — frontend groups all under "javascript"
+
 		"js":  "javascript",
 		"jsx": "javascript",
 		"ts":  "javascript",
 		"tsx": "javascript",
 		"mjs": "javascript",
 		"cjs": "javascript",
-		// Python
+
 		"py":  "python",
 		"pyw": "python",
-		// Java
+
 		"java": "java",
-		// C++ (including .h to match frontend)
 		"cpp": "cpp",
 		"cc":  "cpp",
 		"cxx": "cpp",
 		"hpp": "cpp",
 		"hxx": "cpp",
 		"h":   "cpp",
-		// C
+
 		"c": "c",
-		// Go
+
 		"go": "go",
-		// SQL
+
 		"sql": "sql",
 		// Plain text fallbacks
 		"txt":  "plain",

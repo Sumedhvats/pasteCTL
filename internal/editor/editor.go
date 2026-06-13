@@ -36,9 +36,6 @@ func GetContentFromEditor(initialContent string, editorOverride string) (string,
 		}
 	}
 
-	// Build the argument list. GUI editors like VS Code return immediately
-	// unless told to wait, which causes the temp file to be read (empty/unchanged)
-	// and deleted before the user can edit it.
 	args := []string{}
 	editorBase := filepath.Base(editor)
 	switch editorBase {

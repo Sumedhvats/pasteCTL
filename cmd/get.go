@@ -3,10 +3,12 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/Sumedhvats/pasteCTL/internal/api"
 	"github.com/Sumedhvats/pasteCTL/internal/highlight"
 	"github.com/spf13/cobra"
+	"golang.org/x/term"
 )
 
 var (
@@ -38,14 +40,13 @@ var getCmd = &cobra.Command{
 			fmt.Printf("Created:  %s\n", paste.CreatedAt.Format("2006-01-02 15:04:05"))
 			fmt.Printf("--- Content ---\n")
 
-			if noColor {
+			if noColor || !term.IsTerminal(int(os.Stdout.Fd())) {
 				fmt.Println(paste.Content)
 			} else {
 				if err := highlight.Print(paste.Content, paste.Language); err != nil {
-					// Fall back to plain output if highlighting fails
 					fmt.Println(paste.Content)
 				}
-				fmt.Println() // newline after highlighted output
+				fmt.Println() 
 			}
 		}
 	},

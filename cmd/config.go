@@ -27,7 +27,26 @@ var setCmd = &cobra.Command{
 	},
 }
 
+var listCmd = &cobra.Command{
+	Use:   "list",
+	Short: "List all configuration values",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("Config file: %s\n\n", config.ConfigFilePath())
+		fmt.Printf("  %-20s %-40s %s\n", "KEY", "VALUE", "SOURCE")
+		fmt.Printf("  %-20s %-40s %s\n", "---", "-----", "------")
+		values := config.List()
+		for _, key := range config.KnownKeys {
+			source := "default"
+			if !config.IsDefault(key) {
+				source = "user-set"
+			}
+			fmt.Printf("  %-20s %-40s %s\n", key, values[key], source)
+		}
+	},
+}
+
 func init() {
 	configCmd.AddCommand(setCmd)
+	configCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(configCmd)
 }

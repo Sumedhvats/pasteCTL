@@ -55,3 +55,25 @@ func Set(key, value string) error {
     viper.Set(key, value)
     return viper.WriteConfigAs(configFilePath)
 }
+
+var KnownKeys = []string{
+    "backend_url",
+    "frontend_url",
+}
+
+func List() map[string]string {
+    result := make(map[string]string, len(KnownKeys))
+    for _, key := range KnownKeys {
+        result[key] = viper.GetString(key)
+    }
+    return result
+}
+
+func IsDefault(key string) bool {
+    return !viper.IsSet(key)
+}
+
+func ConfigFilePath() string {
+    home, _ := os.UserHomeDir()
+    return filepath.Join(home, ".config", configFolderName, configFileName+".yaml")
+}
