@@ -7,7 +7,7 @@ import (
 	"runtime"
 )
 
-func GetContentFromEditor(initialContent string) (string, error) {
+func GetContentFromEditor(initialContent string, editorOverride string) (string, error) {
 	file, err := os.CreateTemp("", "pasteCTL-*.txt")
 	if err != nil {
 		return "", err
@@ -24,7 +24,10 @@ func GetContentFromEditor(initialContent string) (string, error) {
 		return "", err
 	}
 
-	editor := os.Getenv("EDITOR")
+	editor := editorOverride
+	if editor == "" {
+		editor = os.Getenv("EDITOR")
+	}
 	if editor == "" {
 		if runtime.GOOS == "windows" {
 			editor = "notepad"

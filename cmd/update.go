@@ -16,12 +16,14 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		pasteID := args[0]
 
+		editorName, _ := cmd.Flags().GetString("editor")
+
 		existingPaste, err := api.GetPaste(pasteID)
 		if err != nil {
 			log.Fatalf("Failed to retrieve existing paste: %v", err)
 		}
 
-		newContent, err := editor.GetContentFromEditor(existingPaste.Content)
+		newContent, err := editor.GetContentFromEditor(existingPaste.Content, editorName)
 		if err != nil {
 			log.Fatalf("Could not get content from editor: %v", err)
 		}
@@ -37,4 +39,5 @@ var updateCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(updateCmd)
+	updateCmd.Flags().StringP("editor", "e", "", "Editor to use (overrides $EDITOR)")
 }

@@ -49,7 +49,7 @@ func createPaste(cmd *cobra.Command, args []string) {
 		}
 		content = string(fileContent)
 	} else {
-		content, err = editor.GetContentFromEditor("")
+		content, err = editor.GetContentFromEditor("", "")
 		if err != nil {
 			log.Fatalf("Error opening editor: %v", err)
 		}
