@@ -23,7 +23,7 @@ var getCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		pasteID := args[0]
 
-		if raw {
+		if raw || !term.IsTerminal(int(os.Stdout.Fd())) {
 			content, err := api.GetPasteRaw(pasteID)
 			if err != nil {
 				log.Fatalf("Failed to get raw paste: %v", err)
@@ -40,7 +40,7 @@ var getCmd = &cobra.Command{
 			fmt.Printf("Created:  %s\n", paste.CreatedAt.Format("2006-01-02 15:04:05"))
 			fmt.Printf("--- Content ---\n")
 
-			if noColor || !term.IsTerminal(int(os.Stdout.Fd())) {
+			if noColor {
 				fmt.Println(paste.Content)
 			} else {
 				if err := highlight.Print(paste.Content, paste.Language); err != nil {
