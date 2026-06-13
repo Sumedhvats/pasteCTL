@@ -2,7 +2,7 @@ package utils
 
 import "regexp"
 
-const ansi = "[\x1b\x9b][\\[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]"
+const ansi = `\x1b\[[0-9;]*[a-zA-Z]`
 
 var re = regexp.MustCompile(ansi)
 
