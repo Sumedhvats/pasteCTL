@@ -3,6 +3,7 @@ package editor
 import (
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 )
 
@@ -32,7 +33,22 @@ func GetContentFromEditor(initialContent string) (string, error) {
 		}
 	}
 
-	cmd := exec.Command(editor, file.Name())
+	// Build the argument list. GUI editors like VS Code return immediately
+	// unless told to wait, which causes the temp file to be read (empty/unchanged)
+	// and deleted before the user can edit it.
+	args := []string{}
+	editorBase := filepath.Base(editor)
+	switch editorBase {
+	case "code", "code-insiders":
+		args = append(args, "--wait")
+	case "subl", "sublime_text":
+		args = append(args, "--wait")
+	case "gedit":
+		args = append(args, "--wait")
+	}
+	args = append(args, file.Name())
+
+	cmd := exec.Command(editor, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
