@@ -24,7 +24,7 @@ var updateCmd = &cobra.Command{
 			log.Fatalf("Failed to retrieve existing paste: %v", err)
 		}
 
-		newContent, err := editor.GetContentFromEditor(existingPaste.Content, editorName)
+		newContent, err := editor.GetContentFromEditor(existingPaste.Content, editorName, existingPaste.Language)
 		if err != nil {
 			log.Fatalf("Could not get content from editor: %v", err)
 		}
