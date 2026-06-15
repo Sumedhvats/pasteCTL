@@ -6,6 +6,12 @@ A command-line interface for [pasteCTL](https://paste.sumedh.app), allowing deve
 
 pasteCTL CLI is a terminal-based client for the pasteCTL platform. It provides a fast and efficient way to share code snippets without leaving your development environment. The CLI integrates with your system's default editor, supports automatic language detection from file extensions, and displays fetched pastes with syntax highlighting in your terminal.
 
+## Demo
+
+[![pasteCTL CLI Demo](https://img.youtube.com/vi/bcKJLG7hMgU/maxresdefault.jpg)](https://youtu.be/bcKJLG7hMgU)
+
+> Click the thumbnail above to watch the demo on YouTube.
+
 ## Features
 
 - **Create Pastes** — from files or directly in your editor
