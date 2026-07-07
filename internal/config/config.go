@@ -11,7 +11,7 @@ import (
 const configFileName = "config"
 const configFolderName = "pasteCTL"
 
-const defaultBackendURL = "https://api.paste.svats.me"
+const defaultBackendURL = "https://app.paste.svats.me"
 const defaultFrontendURL = "https://paste.svats.me/paste"
 
 func InitConfig() {

@@ -174,7 +174,7 @@ pasteCTL CLI stores configuration in `~/.config/pasteCTL/config.yaml`.
 
 ```bash
 # Set the backend API URL
-pasteCTL config set backend_url https://api.paste.svats.me
+pasteCTL config set backend_url https://app.paste.svats.me
 
 # Set the frontend URL (used for generating shareable links)
 pasteCTL config set frontend_url https://paste.svats.me/paste
@@ -186,7 +186,7 @@ The CLI comes with sensible defaults that work out of the box:
 
 | Key | Default Value |
 |---|---|
-| `backend_url` | `https://api.paste.svats.me` |
+| `backend_url` | `https://app.paste.svats.me` |
 | `frontend_url` | `https://paste.svats.me/paste` |
 
 ## Editor Configuration
@@ -292,7 +292,7 @@ go install
 ```
 backend_url is not set. Please use 'pasteCTL config set backend_url <url>'
 ```
-Fix: `pasteCTL config set backend_url https://api.paste.svats.me`
+Fix: `pasteCTL config set backend_url https://app.paste.svats.me`
 
 **Editor not opening:**
 Set the `EDITOR` environment variable: `export EDITOR=vim`
