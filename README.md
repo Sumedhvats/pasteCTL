@@ -1,6 +1,6 @@
 # pasteCTL CLI
 
-A command-line interface for [pasteCTL](https://paste.sumedh.app), allowing developers to create, retrieve, and manage code snippets directly from the terminal.
+A command-line interface for [pasteCTL](https://paste.svats.me), allowing developers to create, retrieve, and manage code snippets directly from the terminal.
 
 ## Overview
 
@@ -174,10 +174,10 @@ pasteCTL CLI stores configuration in `~/.config/pasteCTL/config.yaml`.
 
 ```bash
 # Set the backend API URL
-pasteCTL config set backend_url https://api.paste.sumedh.app
+pasteCTL config set backend_url https://api.paste.svats.me
 
 # Set the frontend URL (used for generating shareable links)
-pasteCTL config set frontend_url https://paste.sumedh.app/paste
+pasteCTL config set frontend_url https://paste.svats.me/paste
 ```
 
 ### Defaults
@@ -186,8 +186,8 @@ The CLI comes with sensible defaults that work out of the box:
 
 | Key | Default Value |
 |---|---|
-| `backend_url` | `https://api.paste.sumedh.app` |
-| `frontend_url` | `https://paste.sumedh.app/paste` |
+| `backend_url` | `https://api.paste.svats.me` |
+| `frontend_url` | `https://paste.svats.me/paste` |
 
 ## Editor Configuration
 
@@ -216,7 +216,7 @@ pasteCTL create --file main.go --expire 24h
 # Output:
 # Creating paste...
 # Paste created successfully!
-# Link: https://paste.sumedh.app/paste/abc123
+# Link: https://paste.svats.me/paste/abc123
 ```
 
 ### Download a Paste
@@ -292,7 +292,7 @@ go install
 ```
 backend_url is not set. Please use 'pasteCTL config set backend_url <url>'
 ```
-Fix: `pasteCTL config set backend_url https://api.paste.sumedh.app`
+Fix: `pasteCTL config set backend_url https://api.paste.svats.me`
 
 **Editor not opening:**
 Set the `EDITOR` environment variable: `export EDITOR=vim`
@@ -305,7 +305,7 @@ chmod +x pasteCTL
 ## Related Projects
 
 - [pasteCTL Web](https://github.com/Sumedhvats/pasteCTL_web) — Full-stack web application with Next.js frontend and Go backend
-- [paste.sumedh.app](https://paste.sumedh.app) — Live instance
+- [paste.svats.me](https://paste.svats.me) — Live instance
 
 ## Support
 

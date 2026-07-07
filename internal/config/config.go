@@ -11,69 +11,68 @@ import (
 const configFileName = "config"
 const configFolderName = "pasteCTL"
 
-
-const defaultBackendURL = "https://api.paste.sumedh.app"
-const defaultFrontendURL = "https://paste.sumedh.app/paste"
+const defaultBackendURL = "https://api.paste.svats.me"
+const defaultFrontendURL = "https://paste.svats.me/paste"
 
 func InitConfig() {
-    home, err := os.UserHomeDir()
-    if err != nil {
-        fmt.Printf("Could not find home directory: %v\n", err)
-        os.Exit(1)
-    }
-    configPath := filepath.Join(home, ".config", configFolderName)
-    if err := os.MkdirAll(configPath, os.ModePerm); err != nil {
-        fmt.Printf(" Could not create config directory: %v\n", err)
-        os.Exit(1)
-    }
-    configFilePath := filepath.Join(configPath, configFileName+".yaml")
-    viper.SetConfigFile(configFilePath)
-    viper.SetConfigType("yaml")
-    viper.SetDefault("backend_url", defaultBackendURL)
-    viper.SetDefault("frontend_url", defaultFrontendURL)
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Printf("Could not find home directory: %v\n", err)
+		os.Exit(1)
+	}
+	configPath := filepath.Join(home, ".config", configFolderName)
+	if err := os.MkdirAll(configPath, os.ModePerm); err != nil {
+		fmt.Printf(" Could not create config directory: %v\n", err)
+		os.Exit(1)
+	}
+	configFilePath := filepath.Join(configPath, configFileName+".yaml")
+	viper.SetConfigFile(configFilePath)
+	viper.SetConfigType("yaml")
+	viper.SetDefault("backend_url", defaultBackendURL)
+	viper.SetDefault("frontend_url", defaultFrontendURL)
 
-    _ = viper.ReadInConfig()
+	_ = viper.ReadInConfig()
 }
 func Get(key string) string {
 	return viper.GetString(key)
 }
 
 func Set(key, value string) error {
-    home, err := os.UserHomeDir()
-    if err != nil {
-        return fmt.Errorf("could not find home directory: %w", err)
-    }
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return fmt.Errorf("could not find home directory: %w", err)
+	}
 
-    configPath := filepath.Join(home, ".config", configFolderName)
-    if err := os.MkdirAll(configPath, os.ModePerm); err != nil {
-        return fmt.Errorf("could not create config directory: %w", err)
-    }
-    configFilePath := filepath.Join(configPath, configFileName+".yaml")
-    viper.SetConfigFile(configFilePath)
-    _ = viper.ReadInConfig()
+	configPath := filepath.Join(home, ".config", configFolderName)
+	if err := os.MkdirAll(configPath, os.ModePerm); err != nil {
+		return fmt.Errorf("could not create config directory: %w", err)
+	}
+	configFilePath := filepath.Join(configPath, configFileName+".yaml")
+	viper.SetConfigFile(configFilePath)
+	_ = viper.ReadInConfig()
 
-    viper.Set(key, value)
-    return viper.WriteConfigAs(configFilePath)
+	viper.Set(key, value)
+	return viper.WriteConfigAs(configFilePath)
 }
 
 var KnownKeys = []string{
-    "backend_url",
-    "frontend_url",
+	"backend_url",
+	"frontend_url",
 }
 
 func List() map[string]string {
-    result := make(map[string]string, len(KnownKeys))
-    for _, key := range KnownKeys {
-        result[key] = viper.GetString(key)
-    }
-    return result
+	result := make(map[string]string, len(KnownKeys))
+	for _, key := range KnownKeys {
+		result[key] = viper.GetString(key)
+	}
+	return result
 }
 
 func IsDefault(key string) bool {
-    return !viper.IsSet(key)
+	return !viper.IsSet(key)
 }
 
 func ConfigFilePath() string {
-    home, _ := os.UserHomeDir()
-    return filepath.Join(home, ".config", configFolderName, configFileName+".yaml")
+	home, _ := os.UserHomeDir()
+	return filepath.Join(home, ".config", configFolderName, configFileName+".yaml")
 }
